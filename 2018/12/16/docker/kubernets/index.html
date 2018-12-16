@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>容器即服务之kubernets | hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="kubernets 集群解决方案 kubernets是google开源的容器集群解决方案，与Swarmkit不同，kubernets并不依赖于Docker项目，而是被设计为一种通用的容器化应用方案。它提供包括资源调度、部署运行、服务发现、扩容缩容等整一套功能，通过与具体 实现无关的抽象合插件机制，使使用者能够方便的采用不同的网络、不同的存储、容器等第三方组件，并支持对kubernets支持的功能进">
+<meta property="og:type" content="article">
+<meta property="og:title" content="容器即服务之kubernets">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/docker/kubernets/index.html">
+<meta property="og:site_name" content="hexo">
+<meta property="og:description" content="kubernets 集群解决方案 kubernets是google开源的容器集群解决方案，与Swarmkit不同，kubernets并不依赖于Docker项目，而是被设计为一种通用的容器化应用方案。它提供包括资源调度、部署运行、服务发现、扩容缩容等整一套功能，通过与具体 实现无关的抽象合插件机制，使使用者能够方便的采用不同的网络、不同的存储、容器等第三方组件，并支持对kubernets支持的功能进">
+<meta property="og:locale" content="zh-cn">
+<meta property="og:updated_time" content="2018-12-16T13:47:48.922Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="容器即服务之kubernets">
+<meta name="twitter:description" content="kubernets 集群解决方案 kubernets是google开源的容器集群解决方案，与Swarmkit不同，kubernets并不依赖于Docker项目，而是被设计为一种通用的容器化应用方案。它提供包括资源调度、部署运行、服务发现、扩容缩容等整一套功能，通过与具体 实现无关的抽象合插件机制，使使用者能够方便的采用不同的网络、不同的存储、容器等第三方组件，并支持对kubernets支持的功能进">
+  
+    <link rel="alternate" href="/atom.xml" title="hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">hexo</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">读书取正 读易取变 读骚取幽 读庄取达 读汉取坚 最有味卷中岁月</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-docker/kubernets" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/16/docker/kubernets/" class="article-date">
+  <time datetime="2018-12-16T13:47:48.922Z" itemprop="datePublished">2018-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      容器即服务之kubernets
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="kubernets-集群解决方案"><a href="#kubernets-集群解决方案" class="headerlink" title="kubernets 集群解决方案"></a>kubernets 集群解决方案</h1><p> kubernets是google开源的容器集群解决方案，与Swarmkit不同，kubernets并不依赖于Docker项目，而是被设计为一种通用的容器化应用方案。它提供包括资源调度、部署运行、服务发现、扩容缩容等整一套功能，通过与具体 实现无关的抽象合插件机制，使使用者能够方便的采用不同的网络、不同的存储、容器等第三方组件，并支持对kubernets支持的功能进行扩展。</p>
+<h2 id="kubernets-的结构"><a href="#kubernets-的结构" class="headerlink" title="kubernets 的结构"></a>kubernets 的结构</h2><p>kubernets的集群主要采用主从结构，所有的服务节点依据角色分为Master节点和Node节点，两种节点分别运行不同的服务。Master节点的作用是控制和管理整个集群状态并接受外部用户的操作请求。它主要运行三种服务，分别是kube-apiserver、kube-scheduler和kuber-controller-manager。</p>
+<p>kube-apiserver服务是整个kubernets集群管理系统的核心，也是部署kubernets系统最先应该启动的组建。其他组建都会在启动的时候接入这个服务，以获取集群状态或注册自己的信息。</p>
+<p>kube-scheduler 是kubernets中负责用户服务调度的子模块，它能够根据集群的当前资源的使用情况选择合适的节点运行特定的服务。</p>
+<p>kube-controller-manager 服务负责管理kubernets系统中各种资源的状态。具体来说，依据其监控的资源种类，包括管理Pod副本的数量的ReplicationController、管理Service映射的EndpointControoler、管理多用户的空间的nameSpace</p>
+<p>等十多种不同种类的模块。</p>
+<p>Node节点是实际运行用户任务的地方。他们都需要运行两种kubernets服务进程，分别是kube-proxy和kubelet，具体作用入下所示：</p>
+<p>kube-proxy服务是为了解决从node节点中的pod对kubernets特定的service访问时的路由问题。每当kubernets创建一个service的endpoint，各个node节点上的bube-proxy进行就会修改节点系统的iptable网络规则，使得该节点的pod访问相应的Endpoint的虚拟IP和端口时，请求会被分发到正确的节点和容器进程</p>
+<p>kubelet服务直接和节点上的容器服务打交道的通道。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>pod表示的是一个容器或多个容器的组合，它是kubernets最基本的调度和操作单元。在同一个pod中的容器总会被调度和部署到同一个节点上，并共享相同的数据卷和网络栈。这意味着在pod里面定义的几个容器都能够同时挂载同一个外部数据卷，还能通过localhost作为地址互相访问，这个特性对于部署关系紧密的服务具有十分重要的作用。</p>
+<p>Deploymnet 是kubernets对于后台服务部署操作的抽象。每个deployment对象有一个部署目标来保存所有部署描述信息的历史，通过这些信息，kubernets便能对目标的配置进行修改和回滚。实际上，Deployment所保存的部署描述信息是用来创建Replicaset对象的。每个Deployment对象都会对应一个运行着Replicaset对象。</p>
+<p>ReplicaSet 用于记录和控制Pod副本的数量，它使用预定义模板自动创建指定数量的Pod副本实例，并运行到不同的Node节点上。</p>
+<p>ReplicationController 是kubernets早期版本中用于管理pod副本对象的概念，从功能上来说，它同时包含了ReplicaSet和Depployment的作用，但不具备部署版本管理功能。</p>
+<p>service是kubernets集群对外提供用户业务功能的抽象，表现为一个独立的虚拟IP和端口。它的后端实际上是由单个pod或者许多pod副本组成的容器。</p>
+<p>DaemonSet的作用与ReplicaSet有些类似，但它并不是用于确保制定pod副本在集群中的总数不变的，而是用于确保pod在每个节点都有且有一个运行副本。</p>
+<h2 id="使用kubernets"><a href="#使用kubernets" class="headerlink" title="使用kubernets"></a>使用kubernets</h2><p>kubernetes中服务的部署主要使用它的Deployment和service对象，可以分别使用kubectl run 和kubectl expose命令来创建他们。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl run nginx --image=nginx</span><br><span class="line">kubectl expose deployment nginx --port=80 --target-port=80 --name=agin-svc</span><br></pre></td></tr></table></figure>
+<p>但是对于复杂任务，使用命令行十分不方便，kubernets提供了kubectl create 和kubctl apply命令通过yaml或json的描述文件来创建各种类型的资源。</p>
+<p>这个文件将kubernets集群中生成一个Deployment对象、一个伴生ReplicaSet对象和三个Pod对象。每个pod对象包含一个容器，使用的镜像是gcro.io/google-samples/gb-fronted:v4</p>
+<p>servie对像在kubernets中的作用是将集群中需要被外部访问的pod给暴露出来，本质上是一个使用iptable实现的内置负载均衡。而它选择被路由的pod的依据是pod的标签。在kubernets中service有四种内置类型：默认类型是ClusterIP，这种情况创建的负载均衡会使用内网的IP地址，只能从集群中节点访问。另外三种情况是NodePort、LoadBalancer和ExternalName.其中NodePort是指除了service生成内网IP地址外，还会在每个node节点上占用一个端口，作为该服务的入口。而LoadBalancer则是在nodePort的基础上自动调用平台API为node暴露的端口创建一个外部负载均衡器，ExternaName，它将外部服务地址暴露到集群内，并赋予一个能通过集群DNS访问的服务名称。</p>
+<p>有了描述kubernets的文件后，使用kuberctl create命令就可以将他们部署到集群中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create -f example/geuestbook</span><br></pre></td></tr></table></figure>
+<p>创建完成后，可以使用kubectl get 命令查看资源的运行情况：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure>
+<p>使用kubectl describe 加上资源类型和资源名称，就可以获取特定资源实例的详细信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe svc frontend</span><br></pre></td></tr></table></figure>
+<h2 id="服务的在线更新和回滚"><a href="#服务的在线更新和回滚" class="headerlink" title="服务的在线更新和回滚"></a>服务的在线更新和回滚</h2><p>kubernets支持对服务进行在新扩容、缩容、升级和回滚，这意味着对应用在不停止对外提供服务的情况下完成版本和参数的更新。kubenets支持滚动更新的方式实现服务的在线升级，即每次增加指定个数的新版本pod（默认是一个），然后在删除相应个数的旧版本pod，持续这个过程，知道所有被管理的旧版本的pod都被更新完毕。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl rooling-update update-demo-nautiuls --update-period=3s -f kitten-rc.yaml</span><br></pre></td></tr></table></figure>
+<p>这个命令会以三秒一个的速度替换当前运行的pod。</p>
+<h2 id="单次任务、定时任务和全局任务"><a href="#单次任务、定时任务和全局任务" class="headerlink" title="单次任务、定时任务和全局任务"></a>单次任务、定时任务和全局任务</h2><p>job、CronJob、DaemonSet同样用于服务或事物的运行，并且同样基于pod进行部署，但他们和Deployment相比，分贝具有一些独特之处。</p>
+<p>Job用于执行具有确定结束条件的单次任务，他们通常是一些运算类的事物，它会在计算完成后将结果输出到日志中。</p>
+<p>job的查看：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get job</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs 任务名</span><br></pre></td></tr></table></figure>
+<p>CronJob在 klubernets 1.4中引入的新概念，它与job类似，但并非只运行一次，而是周期性的运行。</p>
+<p>Deamonset 对象部署的服务会在集群中的每个节点都运行一个单独的pod实例。他的应用场景是部署通用性的基础设施服务，例如监控工具或者日志收集工具。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/12/16/docker/kubernets/" data-id="cjpqy0f6s0001xjt211vjechx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/16/docker/docker/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          容器即服务之docker
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/08/ML/caffe_tensorflow_mxnet_visualization/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">caffe、tensorflow、mxnet 可视化</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/16/docker/docker/">容器即服务之docker</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/16/docker/kubernets/">容器即服务之kubernets</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/08/ML/caffe_tensorflow_mxnet_visualization/">caffe、tensorflow、mxnet 可视化</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/08/ML/deeplearning-info/">深度学习基础知识（1）</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/08/python/django-restfull/">django REST FUll 使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 紫色联盟<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
